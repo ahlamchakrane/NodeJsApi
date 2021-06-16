@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>Express</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+    <a href="../index.html" class="navbar-brand">Users</a>
+    <a href="../articles.html" class="navbar-brand">Articles</a>
+    <a href="../comments.html" class="navbar-brand">Comments</a>
+    <a href="../tags.html" class="navbar-brand">Tags</a>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<body>
+    <div class="container mt-5">
+    <h1>Edit Tag</h1></br>
+    <div id="comments"></div>
+    </div>
+   <script >
+        function gatParameter( parameterName ){
+            let parameters = new URLSearchParams( window.location.search);
+            return parameters.get( parameterName );
+        }
+    let formContainer = document.querySelector('#comments')
+    var id=gatParameter("id");
+    var content=gatParameter("content");
+    var ArticleId=gatParameter("ArticleId");
+   
+    formContainer.innerHTML += "<div form-group><label for='idComment'>Id:</label><input type='text' name='idComment' class='form-control' id='idComment' disabled value="+id+"></div><div form-group><label for='ArticleId'>New ArticleId:</label><input type='text' name='ArticleId' class='form-control' id='ArticleId' disabled value="+ArticleId+"></div><div form-group><label for='content'>New Content:</label><input type='text' name='content' class='form-control' id='content' required value="+content+"></div></br><button type='submit' class='btn btn-warning' style='padding: 1%' onclick='return verification()'>Save</button>"  
+</script>
+<script>
+ function verification() {
+        var content=document.getElementById('content').value;
+        var id=document.getElementById('idComment').value;
+        var ArticleId=document.getElementById('ArticleId').value;
+        $.ajax({
+            url: "/comments",
+            method: "put",
+            data: {
+                content: content,
+                id: id,
+                ArticleId: ArticleId
+            },
+            success: function(res){
+                alert("Good ! Comment updated , You can go back to the main page to check the modification");
+            }
+        })
+        
+        return false;
+    }
+</script>
+</body>
+</html>
