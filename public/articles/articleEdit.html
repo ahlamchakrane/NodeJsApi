@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>Express</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+    <a href="../index.html" class="navbar-brand">Users</a>
+    <a href="../articles.html" class="navbar-brand">Articles</a>
+    <a href="../comments.html" class="navbar-brand">Comments</a>
+    <a href="../tags.html" class="navbar-brand">Tags</a>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<body>
+    <div class="container mt-5">
+    <h1>Edit Article</h1></br>
+    <div id="articles"></div>
+    </div>
+   <script >
+        function gatParameter( parameterName ){
+            let parameters = new URLSearchParams( window.location.search);
+            return parameters.get( parameterName );
+        }
+    let formContainer = document.querySelector('#articles')
+    var id=gatParameter("id");
+    var title=gatParameter("title");
+    var content=gatParameter("content");
+    var UserId=gatParameter("userId");
+   
+formContainer.innerHTML+="<div form-group><label for='id'>Id:</label><input type='text' name='id' class='form-control' id='id' disabled value="+id+"></div><div form-group><label for='UserId'>UserId:</label><input type='text' name='UserId' class='form-control' id='UserId' disabled value="+UserId+"></div><div form-group><label for='title'>New title:</label><input type='text' name='title' class='form-control' id='title' required value="+title+"></div><div form-group><label for='content'>New content:</label><input type='text' name='content' class='form-control' id='content' required value="+content+"></div></br><button type='submit' class='btn btn-warning' style='padding: 1%' onclick='return verification()'>Save</button>"  
+</script>
+<script>
+ function verification() {
+        var id=document.getElementById('id').value;
+        var title=document.getElementById('title').value;
+        var content=document.getElementById('content').value;
+        var UserId=document.getElementById('UserId').value;
+
+
+        $.ajax({
+            url: "/articles",
+            method: "put",
+            data: {
+                id: id,
+                title: title,
+                content: content,
+                UserId: UserId
+            },
+            success: function(res){
+                alert("Good ! Article updated , You can go back to the main page to check the modification");
+            }
+        })
+        return false;
+    }
+</script>
+</body>
+</html>
