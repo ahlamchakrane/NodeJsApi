@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>Express</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+    <a href="index.html" class="navbar-brand">Users</a>
+    <a href="articles.html" class="navbar-brand">Articles</a>
+    <a href="comments.html" class="navbar-brand">Comments</a>
+    <a href="tags.html" class="navbar-brand">Tags</a>
+</nav>
+<body>
+    <div class="container mt-6" id="users">
+    <h1>Users list <a href="users/userAdd.html" class="btn btn-success">Add User</a></h1></br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Create At</th>
+                <th>Update At</th>
+                 <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+    </table>
+</div>
+
+<script src="/javascripts/script.js"></script>
+<script>
+    let tbody = document.querySelector('#users tbody')
+    getUsers((users) => {
+        users.forEach( u => {
+        tbody.innerHTML += "<tr><td>"+u.id+"</td><td>"+u.username+"</td><td>"+u.email+" </td><td>"+u.createdAt+"</td><td>"+u.updatedAt+"</td><td>"+u.role+"</td><td><a href='users/userEdit.html?id="+u.id+"&username="+u.username+"&email="+u.email+"&role="+u.role+"&password="+u.password+"' class='btn btn-sm btn-primary'>Edit</a> <a href='users/userDelete.html?id="+u.id+"&username="+u.username+"&email="+u.email+"&role="+u.role+"&password="+u.password+"' class='btn btn-sm btn-danger'>Delete</a></td></tr>"   
+        })
+    })
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

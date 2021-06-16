@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>List of Comments</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+    <a href="index.html" class="navbar-brand">Users</a>
+    <a href="articles.html" class="navbar-brand">Articles</a>
+    <a href="comments.html" class="navbar-brand">Comments</a>
+    <a href="tags.html" class="navbar-brand">Tags</a>
+</nav>
+<body>
+    <div class="container mt-5" id="tags">
+    <h1>Tags list <a href="tags/tagAdd.html" class="btn btn-success">Add Tag</a></h1></br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>name</th>
+                <th>Create At</th>
+                <th>Update At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+    </table>
+</div>
+<script src="/javascripts/tags.js"></script>
+<script>
+    let tbody = document.querySelector('#tags tbody')
+    getTags((tags) => {
+        tags.forEach( u => {
+        tbody.innerHTML += "<tr><td>"+u.id+"</td><td>"+u.name+"</td><td>"+ u.createdAt +"</td><td>"+u.updatedAt+"</td><td><a href='tags/tagEdit.html?id="+u.id+"&name="+u.name+"' class='btn btn-sm btn-primary'>Edit</a> <a href='tags/tagDelete.html?id="+u.id+"&name="+u.name+"' class='btn btn-sm btn-danger'>Delete</a></td></tr>"
+        })
+    })
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
