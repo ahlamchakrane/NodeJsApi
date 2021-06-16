@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <title>Express</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+    <a href="../index.html" class="navbar-brand">Users</a>
+    <a href="../articles.html" class="navbar-brand">Articles</a>
+    <a href="../comments.html" class="navbar-brand">Comments</a>
+    <a href="../tags.html" class="navbar-brand">Tags</a>
+</nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<body>
+    <div class="container mt-5">
+    <h1>Delete User</h1></br>
+    <div id="users"></div>
+    </div>
+   <script >
+        function gatParameter( parameterName ){
+            let parameters = new URLSearchParams( window.location.search);
+            return parameters.get( parameterName );
+        }
+    let formContainer = document.querySelector('#users')
+    var id=gatParameter("id");
+    var username=gatParameter("username");
+    var email=gatParameter("email");
+    var role=gatParameter("role");
+    var password=gatParameter("password");
+
+   
+    formContainer.innerHTML += "<div form-group><label for='id'>Id:</label><input type='text' name='id' class='form-control' id='id' disabled value="+id+"></div><div form-group><label for='username'>Username:</label><input type='text' name='username' class='form-control' id='username' disabled value="+username+"></div><div form-group><label for='email'>Email:</label><input type='text' name='email' class='form-control' id='email' disabled value="+email+"></div><div form-group><label for='role'>Role:</label><input type='text name='role' class='form-control' id='role' disabled value="+role+"></div><div form-group><label for='password'>Password:</label><input type='password' name='password' class='form-control' id='password' disabled value="+password+"></div></br><button type='submit' class='btn btn-danger' style='padding: 1%' onclick='return verification()'>Delete</button>"  
+</script>
+<script>
+ function verification() {
+        var password=document.getElementById('password').value;
+        var username=document.getElementById('username').value;
+        var email=document.getElementById('email').value;
+        var id=document.getElementById('id').value;
+        var role=document.getElementById('role').value;
+        $.ajax({
+            url: "/user/"+id,
+            method: "delete",
+            data: {
+                password: password,
+                username: username,
+                email: email,
+                id: id,
+                role: role
+            },
+            success: function(res){
+                alert("User deleted ! You can go back to the main page to check the modification");
+            }
+        })
+        return false;
+    }
+</script>
+</body>
+</html>

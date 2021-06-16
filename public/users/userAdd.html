@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <title>Express</title>
+</head>
+<nav class="navbar navbar-light bg-light" style="background-color: #dcdde1;">
+     <a href="../index.html" class="navbar-brand">Users</a>
+    <a href="../articles.html" class="navbar-brand">Articles</a>
+    <a href="../comments.html" class="navbar-brand">Comments</a>
+    <a href="../tags.html" class="navbar-brand">Tags</a>
+</nav>
+<body>
+    <div class="container mt-5">
+    <h1>Add new User</h1></br>
+    <form action="/users" method="post">
+    <div form-group>
+    	<label for="username">Username:</label>
+    	<input type="text" name="username" class="form-control" id="username" placeholder="Enter Name" required>
+    </div>
+    <div form-group>
+        <label for="email">Email:</label>
+        <input type="text" name="email" class="form-control" id="email" placeholder="Enter Email" required>
+    </div>  
+     <div form-group>
+    	<label for="password">Password:</label>
+    	<input type="password" name="password" class="form-control" id="password" placeholder="Enter Password" required>
+    </div>
+     <div form-group>
+    	<label for="Cpassword">Confirm Password:</label>
+    	<input type="password" name="Cpassword" class="form-control" id="Cpassword" placeholder="Confirm Password" required>
+    </div> 
+    <label>Role</label>
+   <select name='role' class='form-control' id='role' required >
+    <option>Admin</option>
+    <option>Guest</option>
+    <option>Author</option>
+    </select>
+    </br>
+    <button type="submit" class="btn btn-warning" style="padding: 1%" onclick="varification()">Save</button> 
+    </form>
+    </div>
+    <script>
+    function varification() {
+        var pass=document.getElementById('password').value;
+        var Cpass=document.getElementById('Cpassword').value;
+        var rl=document.getElementById('role').value;
+        if(Cpass!==pass){
+            alert('Ooops !! Mot de passe n\'est pas correct');
+        }
+        else
+            alert('User Added');
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
