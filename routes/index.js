@@ -1,7 +1,6 @@
-
-
 var express = require('express');
 var router = express.Router();
+var authMiddleware=require('../middlewares/auth');
 
 
 /* GET home page. */
@@ -20,5 +19,9 @@ router.get('/tags', function(req, res, next) {
 router.get('/comments', function(req, res, next) {
   res.send('');
 });
+
+router.get('/update',authMiddleware,function(req, res){
+	res.send('ok');
+})
 
 module.exports = router;

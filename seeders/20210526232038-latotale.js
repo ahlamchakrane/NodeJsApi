@@ -7,15 +7,18 @@ var NbrComments=[0,1,2,3,4,5,6,7,8,9,10]; //Chaque article est commenté avec en
 var TTab= new Array();
 var ArticlesTab= new Array();
 var Userstab=new Array();
+var UsersCreatedAt=new Array();
+var ArticlesCreatedAt=new Array();
 var randValue;
 var nbr;
+var createdAt;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
      //10 tags 
 	  for(var i=0; i<10;i++){
       randValue=Math.floor(Math.random()*3);
       var tagId = await queryInterface.bulkInsert('Ts', [{ 
-          name: faker.internet.userName(),
+          name: faker.lorem.words(3),
           createdAt: new Date(),
           updatedAt: new Date()
         }], {});
@@ -29,10 +32,11 @@ module.exports = {
             email: faker.internet.exampleEmail(),
             password: faker.internet.password(),
             role: roles[randValue],
-            createdAt: faker.date.between('2020-01-01','2021-01-01'),
-            updatedAt: new Date()
+            createdAt: createdAt=faker.date.between('2000-01-01',new Date()),
+            updatedAt: faker.date.future(1, createdAt)
        }], {});
         Userstab[i]=userId;
+        UsersCreatedAt[i]=createdAt;
       }
     //creation entre 2 à 10 articles pour chaque utilisateur
       for(var u=0;u<Userstab.length;u++){
@@ -42,11 +46,12 @@ module.exports = {
         var ArticleId=await queryInterface.bulkInsert('Articles', [{
           content: faker.lorem.text(),
           title: faker.name.title(),
-          createdAt : faker.date.between('2020-01-01', '2021-01-01'),
-          updatedAt : new Date(),
+          createdAt: createdAt=faker.date.between(UsersCreatedAt[u],new Date()),
+          updatedAt: faker.date.future(1, createdAt),
           UserId : Userstab[u]
           }], {});
        ArticlesTab[i]=ArticleId;
+       ArticlesCreatedAt[i]=createdAt;
       }
       }
     //    // acreation entre 0 à 10 commentaire
@@ -56,19 +61,20 @@ module.exports = {
           for(var i=0; i<nbr;i++){
            await queryInterface.bulkInsert('comments', [{
             content: faker.datatype.string(),
-            createdAt : faker.date.between('2020-01-01', '2021-01-01'),
-            updatedAt : new Date(),
-            ArticleId: ArticlesTab[a]
+            createdAt: createdAt=faker.date.between(ArticlesCreatedAt[a],new Date()),
+            updatedAt: faker.date.future(1, createdAt),
+            ArticleId: ArticlesTab[a],
+            UserId : Userstab[a]
             }], {});
           }
         }
         for(var a=0;a<ArticlesTab.length;a++){
-          randValue=Math.floor(Math.random()*5);
-          nbr=NbrTags[randValue];
+        randValue=Math.floor(Math.random()*5);
+        nbr=NbrTags[randValue];
         for(var i=0; i<nbr;i++){
          await queryInterface.bulkInsert('articletags', [{
-          createdAt: faker.date.between('2020-01-01', '2021-01-01'),
-          updatedAt: new Date(),
+          createdAt: createdAt=faker.date.between(ArticlesCreatedAt[a],new Date()),
+          updatedAt: faker.date.future(1, createdAt),
           ArticleId: ArticlesTab[a],
           TID : TTab[i]
           }], {});
@@ -82,3 +88,5 @@ module.exports = {
 };
 //npm run migrate
 //sequelize db:seed:all
+//sequelize db:seed:undo:all supprime tous la data de la bse de données 
+//https://fakerjsdocs.netlify.app/api/lorem.html#word

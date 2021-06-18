@@ -1,11 +1,6 @@
-
-
-
-
 var express = require('express');
 var Router = require('./routes/router');
 var jwt = require('express-jwt');
-var authMiddleware=require('./middlewares/auth');
 
 
 var app = express();
