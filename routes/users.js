@@ -4,9 +4,6 @@ var roles=require('../middlewares/role');
 //ahlam test
 
 module.exports= function(router){
-	router.post('/tt',function(req,res){
-		res.send('ok');
-	})
 	router.post('/auth',async function(req, res) {
 		  var token, user;
 		  // find user

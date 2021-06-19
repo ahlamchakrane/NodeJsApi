@@ -15,13 +15,13 @@ router.get('/articles', function(req, res, next) {
 router.get('/tags', function(req, res, next) {
   res.send('');
 });
+router.get('/Login', function(req, res, next) {
+  res.send('');
+});
 
 router.get('/comments', function(req, res, next) {
   res.send('');
 });
 
-router.get('/update',authMiddleware,function(req, res){
-	res.send('ok');
-})
 
 module.exports = router;

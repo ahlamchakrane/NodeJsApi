@@ -4,9 +4,10 @@ var authMiddleware=require('../middlewares/auth');
 
 //ajouter les routes public private
 require('./users')(router);
-require('./tags')(router)
-require('./comments')(router)
-require('./articles')(router)
+require('./tags')(router);
+require('./comments')(router);
+require('./articles')(router);
+require('./Login')(router);
 
 // router.get('/update',authMiddleware,roles(['Admin','Author']),function(req, res){
 // 	res.send('done');

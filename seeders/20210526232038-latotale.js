@@ -4,23 +4,24 @@ var roles = ["Author", "Admin", "Guest"];
 var NbrArticle= [2,3,4,5,6,7,8,9,10]; //Chaque utilisateur aura créé au moins 2 articles et au plus 10 articles
 var NbrTags=[2,3,4,5,6]; //Chaque article est taggé avec entre 2 et 6 tags
 var NbrComments=[0,1,2,3,4,5,6,7,8,9,10]; //Chaque article est commenté avec entre 0 et 10 commentaires
-var TTab= new Array();
-var ArticlesTab= new Array();
-var Userstab=new Array();
-var UsersCreatedAt=new Array();
-var ArticlesCreatedAt=new Array();
+var TTab= new Array(); //tableau pour stocker les tags
+var ArticlesTab= new Array(); //tableau pour stocker les artcles
+var Userstab=new Array(); //tableau pour stocker les utilisateurs
+var UsersCreatedAt=new Array(); //tableau pour stocker les dates de creation des utilisateurs
+var ArticlesCreatedAt=new Array(); //tableau pour stocker les dates de creation des articles
 var randValue;
 var nbr;
 var createdAt;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
      //10 tags 
+     createdAt=new Date();
 	  for(var i=0; i<10;i++){
       randValue=Math.floor(Math.random()*3);
       var tagId = await queryInterface.bulkInsert('Ts', [{ 
           name: faker.lorem.words(3),
-          createdAt: new Date(),
-          updatedAt: new Date()
+          createdAt: createdAt,
+          updatedAt: faker.date.future(1, createdAt)
         }], {});
       TTab[i]=tagId;
     }
@@ -54,6 +55,7 @@ module.exports = {
        ArticlesCreatedAt[i]=createdAt;
       }
       }
+      console.log(ArticlesTab);
     //    // acreation entre 0 à 10 commentaire
         for(var a=0;a<ArticlesTab.length;a++){
           randValue=Math.floor(Math.random()*10);
