@@ -41,7 +41,7 @@ module.exports= function(router){
 			})()
 		})
 		//Insert a user
-		.post(roles(['Admin','Author']),function(req, res){
+		.post(function(req, res){
 		 User.addUser({
          username: req.body.username,
          email: req.body.email,
@@ -53,7 +53,7 @@ module.exports= function(router){
 		 res.redirect('index.html');	
 	     })
 		//Update a user
-		.put(roles(['Admin','Author']),function(req, res){
+		.put(function(req, res){
 		User.updateUser(req.body)
 		 res.status(200).send({
 		 message: 'User updated '
@@ -86,7 +86,7 @@ module.exports= function(router){
 			})()
 		})
 	router.route('/user/:id')
-	.delete(roles(['Admin','Author']),function(req, res){
+	.delete(function(req, res){
 			User.deleteUser(req.body.id)
 		    res.status(200).send({
 		 	message: 'User deleted '
